@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   namespace :api do
-    resources :keys
+    resources :keys, param: :identity
     resources :events
   end
 

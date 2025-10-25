@@ -1,10 +1,27 @@
 <p style="color: green"><%= notice %></p>
 
+<h1><%= @project.name %></h1>
+
 <%= render @project %>
 
 <div>
   <%= link_to "Edit this project", edit_project_path(@project) %> |
   <%= link_to "Back to projects", projects_path %>
+
+  <hr>
+
+  <h2>Api keys</h2>
+  <% @project.api_keys.each do |key| %>
+    <div>
+      <%= key.identity %>
+
+      <%= button_to "Destroy", key, method: :delete %>
+    </div>
+  <% end %>
+
+  <%= button_to "Create API Key", api_keys_path(api_key: { project_id: @project.id }), method: :post %>
+
+  <hr>
 
   <%= button_to "Destroy this project", @project, method: :delete %>
 </div>

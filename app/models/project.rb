@@ -1,8 +1,8 @@
 class Project < ApplicationRecord
   before_create :assign_random_identity
 
-  has_many :api_keys
-  has_many :api_events
+  has_many :api_keys, class_name: "Api::Key", dependent: :destroy
+  has_many :api_events, class_name: "Api::Event", dependent: :destroy
 
   validates :name, presence: true
   validates :identity, presence: true

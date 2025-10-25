@@ -12,7 +12,7 @@ class Api::KeysController < ApplicationController
     @api_key = Api::Key.new(api_key_params)
 
     if @api_key.save
-      render :show, status: :created, location: @api_key
+      render json: @api_key, status: :created, location: @api_key
     else
       render json: @api_key.errors, status: :unprocessable_entity
     end
@@ -33,10 +33,10 @@ class Api::KeysController < ApplicationController
   private
 
   def set_api_key
-    @api_key = Api::Key.find(params.expect(:id))
+    @api_key = Api::Key.find_by_identity!(params.expect(:identity))
   end
 
   def api_key_params
-    params.expect(api_key: [:identifier, :project_id])
+    params.expect(api_key: [:identity, :project_id])
   end
 end

@@ -20,7 +20,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_25_185033) do
   end
 
   create_table "api_keys", force: :cascade do |t|
-    t.string "identifier"
+    t.string "identity"
     t.integer "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
