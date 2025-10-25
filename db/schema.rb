@@ -14,17 +14,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_25_195441) do
   create_table "api_events", force: :cascade do |t|
     t.string "name"
     t.json "properties"
-    t.integer "project_id"
+    t.integer "api_key_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["api_key_id"], name: "index_api_events_on_api_key_id"
   end
 
   create_table "api_keys", force: :cascade do |t|
     t.string "identity"
-    t.integer "project_id"
+    t.integer "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "domain"
+    t.index ["project_id"], name: "index_api_keys_on_project_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -33,4 +35,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_25_195441) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "api_events", "api_keys"
+  add_foreign_key "api_keys", "projects"
 end
