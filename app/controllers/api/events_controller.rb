@@ -1,4 +1,6 @@
 class Api::EventsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:create]
+
   before_action :set_api_event, only: [:show, :update, :destroy]
 
   def index
@@ -9,10 +11,17 @@ class Api::EventsController < ApplicationController
   end
 
   def create
-    @api_event = Api::Event.new(api_event_params)
+    authorization_header = request.headers["Authorization"]&.split(" ")&.last
+
+    @api_key = Api::Key.find_by_identity!(authorization_header)
+    @api_event = Api::Event.new({
+      name: params[:name],
+      properties: params[:properties],
+      api_key: @api_key
+    })
 
     if @api_event.save
-      render :show, status: :created, location: @api_event
+      head :ok
     else
       render json: @api_event.errors, status: :unprocessable_entity
     end
