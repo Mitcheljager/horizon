@@ -17,5 +17,5 @@ Rails.application.routes.draw do
     resources :events
   end
 
-  resources :projects
+  resources :projects, param: :identity
 end
