@@ -3,6 +3,8 @@ class Api::Key < ApplicationRecord
 
   belongs_to :project
 
+  has_many :api_events, class_name: "Api::Event"
+
   validates :domain, presence: true
 
   def to_param
