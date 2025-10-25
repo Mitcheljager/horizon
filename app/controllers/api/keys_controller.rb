@@ -37,6 +37,6 @@ class Api::KeysController < ApplicationController
   end
 
   def api_key_params
-    params.expect(api_key: [:identity, :project_id])
+    params.expect(api_key: [:identity, :project_id, :domain])
   end
 end

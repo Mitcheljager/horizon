@@ -3,6 +3,8 @@ class Api::Key < ApplicationRecord
 
   belongs_to :project
 
+  validates :domain, presence: true
+
   def to_param
     identity
   end

@@ -13,13 +13,20 @@
   <h2>Api keys</h2>
   <% @project.api_keys.each do |key| %>
     <div>
-      <%= key.identity %>
+      <%= key.identity %> | <%= key.domain %>
 
       <%= button_to "Destroy", key, method: :delete %>
     </div>
   <% end %>
 
-  <%= button_to "Create API Key", api_keys_path(api_key: { project_id: @project.id }), method: :post %>
+  <%= form_with model: Api::Key.new, url: api_keys_path, method: :post, local: true do |form| %>
+    <%= form.hidden_field :project_id, value: @project.id %>
+
+    <%= form.label :domain, "Domain" %>
+    <%= form.text_field :domain, required: true %>
+
+    <%= form.submit "Create API Key" %>
+  <% end %>
 
   <hr>
 

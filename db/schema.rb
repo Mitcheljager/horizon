@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_25_185033) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_25_195441) do
   create_table "api_events", force: :cascade do |t|
     t.string "name"
     t.json "properties"
@@ -24,6 +24,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_25_185033) do
     t.integer "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "domain"
   end
 
   create_table "projects", force: :cascade do |t|
